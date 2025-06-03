@@ -16,7 +16,7 @@ def score_tweet(text):
         matched_categories += 1
 
     # AI-relevance signals
-    if re.search(r"\bai automation\b|\bexpert bottleneck\b", text_lower):
+    if re.search(r"\bai automation\b|\bexpert bottleneck\b|\bai\b", text_lower):
         score += 2
         matched_categories += 1
     

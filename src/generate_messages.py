@@ -14,7 +14,7 @@ def generate_message(tweet_text, score):
         f"Hi there! I saw your recent tweet:\n"
         f'"{snippet}..."\n\n'
         f"{urgency} We help teams integrate AI-human collaboration systems to scale operations and reduce expert bottlenecks. "
-        f"Happy to share a quick demo or talk if you're open!"
+        f" Happy to share a quick demo or talk if you're open!"
     )
 
     return message

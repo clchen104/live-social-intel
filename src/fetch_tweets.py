@@ -19,14 +19,14 @@ def search_tweets(query, max_results=10):
     
     except tweepy.TooManyRequests:
         print("Twitter API rate limit hit (HTTP 429). Falling back to mock tweets.")
-    
+
     except Exception as e:
         print("Error fetching tweets:", e)
         print("Falling back to mock tweets.")
 
     # Fallback: load mock tweets
     try:
-        print("🔁 Using mock tweets for scoring.")
+        print("Using mock tweets for scoring.")
         with open("mock_tweets.json", "r") as f:
             mock_tweets = json.load(f)
             print(f"Loaded {len(mock_tweets)} mock tweets.")
@@ -45,26 +45,26 @@ if __name__ == "__main__":
 
     scored_data = []
     for tweet in results:
-        # Support both Tweepy Tweet objects and mock dicts
+        # Handle both real tweets and mock tweet dicts
         if isinstance(tweet, dict):
-        text = tweet["text"]
-        author = tweet.get("author_id", "mock")
-        created = tweet.get("created_at", "mock")
-    else:
-        text = tweet.text
-        author = tweet.author_id
-        created = str(tweet.created_at)
+            text = tweet["text"]
+            author = tweet.get("author_id", "mock")
+            created = tweet.get("created_at", "mock")
+        else:
+            text = tweet.text
+            author = tweet.author_id
+            created = str(tweet.created_at)
 
-    score, categories = score_tweet(text)
-    scored_data.append({
-        "score": score,
-        "matched_categories": categories,
-        "text": text,
-        "author_id": author,
-        "created_at": created
-    })
+        score, categories = score_tweet(text)
+        scored_data.append({
+            "score": score,
+            "matched_categories": categories,
+            "text": text,
+            "author_id": author,
+            "created_at": created
+        })
 
-    # Save to JSON
+    # Save results to JSON
     with open("scored_leads.json", "w") as f:
         json.dump(scored_data, f, indent=2)
         print(f"Saved {len(scored_data)} leads to scored_leads.json")

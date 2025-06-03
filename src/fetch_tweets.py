@@ -26,6 +26,7 @@ def search_tweets(query, max_results=10):
 
     # Fallback: load mock tweets
     try:
+        print("🔁 Using mock tweets for scoring.")
         with open("mock_tweets.json", "r") as f:
             mock_tweets = json.load(f)
             print(f"Loaded {len(mock_tweets)} mock tweets.")
@@ -45,18 +46,23 @@ if __name__ == "__main__":
     scored_data = []
     for tweet in results:
         # Support both Tweepy Tweet objects and mock dicts
-        text = tweet["text"] if isinstance(tweet, dict) else tweet.text
-        author = tweet.get("author_id", "mock") if isinstance(tweet, dict) else tweet.author_id
-        created = tweet.get("created_at", "mock") if isinstance(tweet, dict) else str(tweet.created_at)
+        if isinstance(tweet, dict):
+        text = tweet["text"]
+        author = tweet.get("author_id", "mock")
+        created = tweet.get("created_at", "mock")
+    else:
+        text = tweet.text
+        author = tweet.author_id
+        created = str(tweet.created_at)
 
-        score, categories = score_tweet(text)
-        scored_data.append({
-            "score": score,
-            "matched_categories": categories,
-            "text": text,
-            "author_id": author,
-            "created_at": created
-        })
+    score, categories = score_tweet(text)
+    scored_data.append({
+        "score": score,
+        "matched_categories": categories,
+        "text": text,
+        "author_id": author,
+        "created_at": created
+    })
 
     # Save to JSON
     with open("scored_leads.json", "w") as f:

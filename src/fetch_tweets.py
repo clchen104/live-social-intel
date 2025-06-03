@@ -10,13 +10,18 @@ client = tweepy.Client(bearer_token=BEARER_TOKEN)
 
 def search_tweets(query, max_results=10):
     try:
-        tweets = client.search_recent_tweets(
+        response = client.search_recent_tweets(
             query=query, 
             max_results=max_results, 
             tweet_fields=["author_id", "created_at"]
         )
-        return tweets.data if tweets.data else []
-    
+        
+        if response.data is None:
+            print("Twitter returned no data. Using fallback.")
+            raise Exception("Empty response from Twitter API.")
+
+        return response.data
+
     except tweepy.TooManyRequests:
         print("Twitter API rate limit hit (HTTP 429). Falling back to mock tweets.")
 
@@ -34,6 +39,7 @@ def search_tweets(query, max_results=10):
     except Exception as e:
         print("Failed to load mock tweets:", e)
         return []
+
 
 if __name__ == "__main__":
     query = '"AI automation" OR "scaling teams" OR "expert bottlenecks" -is:retweet lang:en'

@@ -1,21 +1,15 @@
 [
   {
     "source": "LinkedIn",
-    "author": "CTO at MidSize Inc.",
-    "text": "We're looking to scale our AI-driven operations. Hiring now, and open to automation partners.",
-    "timestamp": "2025-05-27T20:00:00Z",
-    "score": 2,
-    "matched_categories": 1,
-    "message": "Hi there! I saw your recent tweet:\n \"We're looking to scale our AI-driven operations. Hiring now, and open to automation partners....\"\n\nWe noticed you're looking into AI or automation. We help teams integrate AI-human collaboration systems to scale operations and reduce expert bottlenecks.Happy to share a quick demo or talk if you're open!"
-  },
-  {
-    "source": "LinkedIn",
     "author": "Head of Product at TinyStartup",
     "text": "Thinking about AI automation for onboarding tasks \u2014 not urgent, just exploring options.",
     "timestamp": "2025-05-26T18:30:00Z",
     "score": 4,
-    "matched_categories": 2,
-    "message": "Hi there! I saw your recent tweet:\n \"Thinking about AI automation for onboarding tasks \u2014 not urgent, just exploring options....\"\n\nWe noticed you're looking into AI or automation. We help teams integrate AI-human collaboration systems to scale operations and reduce expert bottlenecks.Happy to share a quick demo or talk if you're open!"
+    "matched_categories": [
+      "urgency",
+      "ai"
+    ],
+    "message": "Hi there! I saw your recent post:  \n\"Thinking about AI automation for onboarding tasks \u2014 not urgent, just exploring options....\"  \n\nYou're clearly facing urgent AI integration needs.  \n\nWe help teams integrate AI-human collaboration systems to scale operations and reduce expert bottlenecks.  \n\nHappy to share a quick demo or talk if you're open!"
   },
   {
     "source": "LinkedIn",
@@ -23,7 +17,10 @@
     "text": "Urgent: need help launching our Series B AI initiative to remove expert bottlenecks.",
     "timestamp": "2025-05-25T15:45:00Z",
     "score": 4,
-    "matched_categories": 2,
-    "message": "Hi there! I saw your recent tweet:\n \"Urgent: need help launching our Series B AI initiative to remove expert bottlenecks....\"\n\nWe noticed you're looking into AI or automation. We help teams integrate AI-human collaboration systems to scale operations and reduce expert bottlenecks.Happy to share a quick demo or talk if you're open!"
+    "matched_categories": [
+      "urgency",
+      "budget"
+    ],
+    "message": "Hi there! I saw your recent post:  \n\"Urgent: need help launching our Series B AI initiative to remove expert bottlenecks....\"  \n\nSounds like your team needs help fast.  \n\nWe help teams integrate AI-human collaboration systems to scale operations and reduce expert bottlenecks.  \n\nHappy to share a quick demo or talk if you're open!"
   }
 ]

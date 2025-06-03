@@ -9,10 +9,17 @@ BEARER_TOKEN = os.getenv("TWITTER_BEARER_TOKEN")
 client = tweepy.Client(bearer_token=BEARER_TOKEN)
 
 def search_tweets(query, max_results=10):
-    tweets = client.search_recent_tweets(query=query, 
-                                        max_results=max_results, 
-                                        tweet_fields=["author_id", "created_at"])
-    return tweets.data if tweets.data else []
+    try:
+        tweets = client.search_recent_tweets(query=query, 
+                                            max_results=max_results, 
+                                            tweet_fields=["author_id", "created_at"])
+        return tweets.data if tweets.data else []
+    except tweepy.TooManyRequests:
+        print("Twitter API rate limit hit (HTTP 429). Try again later.")
+        return []
+    except Exception as e:
+        print("Error fetching tweets:", e)
+        return []
 
 if __name__ == "__main__":
     query = '"AI automation" OR "scaling teams" OR "expert bottlenecks" -is:retweet lang:en'

@@ -10,7 +10,7 @@ def parse_linkedin_posts(input_file="linkedin_posts.json", output_file="linkedin
 
     for post in posts:
         score, categories = score_tweet(post["text"])
-        message = generate_message(post["text"], score)
+        message = generate_message(post["text"], score, categories)
 
         if message:
             scored_leads.append({

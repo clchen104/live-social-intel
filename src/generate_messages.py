@@ -16,11 +16,11 @@ def generate_message(text, score, categories):
         return None
 
     message = (
-    f"Hi there! I saw your recent post:\n"
-    f'"{snippet}..."\n\n'
-    f"{urgency}\n\n"
-    f"We specialize in AI-human collaboration systems that scale teams and reduce expert bottlenecks.\n\n"
-    f"Happy to share a quick demo if you're interested!"
+        f"Hi there! I saw your recent post:\n"
+        f'"{snippet}..."\n\n'
+        f"{urgency}\n\n"
+        f"We specialize in AI-human collaboration systems that scale teams and reduce expert bottlenecks.\n\n"
+        f"Happy to share a quick demo if you're interested!"
     )
 
     return message

@@ -25,7 +25,8 @@ try:
     for lead in combined:
         st.subheader(f"{lead.get('author', lead.get('author_id', 'Unknown'))} — {lead['score']}/10")
         st.markdown(f"**Text**: {lead['text']}")
-        st.markdown(f"**Message**: {lead['message']}")
+        st.markdown("**Message:**")
+        st.text(lead["message"])
         st.markdown("---")
 
 except Exception as e:

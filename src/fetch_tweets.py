@@ -33,7 +33,7 @@ if __name__ == "__main__":
             "created_at": str(tweet.created_at)
         }
         for tweet in results
-        for score, matched_categories in [score_tweet(tweet.text)]  # 👈 unpack inside loop
+        for score, categories in [score_tweet(tweet.text)]
     ]
 
     with open("scored_leads.json", "w") as f:

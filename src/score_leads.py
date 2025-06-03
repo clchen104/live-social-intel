@@ -2,44 +2,34 @@ import re
 
 def score_tweet(text):
     score = 0
-    matched_categories = 0
+    matched_categories = []
     text_lower = text.lower()
 
-    # Urgency signals
     if re.search(r"\burgent\b|\bneed (help|now)\b", text_lower):
         score += 2
-        matched_categories += 1
+        matched_categories.append("urgency")
 
-    #Hiring/growth signals
     if re.search(r"\bhiring\b|\bscaling\b|\blooking for help\b", text_lower):
         score += 2
-        matched_categories += 1
+        matched_categories.append("hiring")
 
-    # AI-relevance signals
-    if re.search(r"\bai automation\b|\bexpert bottleneck\b|\bai\b", text_lower):
+    if re.search(r"\bai automation\b|\bexpert bottleneck\b", text_lower):
         score += 2
-        matched_categories += 1
-    
-    # Company size signals
+        matched_categories.append("ai")
+
     if re.search(r"\binc\b|\bcorp\b|\bllc\b|\bteam of \d{2,}\b|\bfortune\b", text_lower):
         score += 1
-        matched_categories += 1
-    
-    # Budget/investment signals
+        matched_categories.append("company_size")
+
     if re.search(r"\bfunded\b|\braising\b|\binvestment\b|\bseries [abc]\b|\blaunching ai\b", text_lower):
         score += 2
-        matched_categories += 1
+        matched_categories.append("budget")
 
-    # Leadership roles
     if re.search(r"\bceo\b|\bcto\b|\bvp\b|\bhead of\b|\bdirector\b", text_lower):
         score += 1
-        matched_categories += 1
+        matched_categories.append("exec")
 
-
-    if matched_categories >= 3:
+    if len(matched_categories) >= 3:
         score += 1
-    
-    score = min(score, 10)
 
     return score, matched_categories
-    

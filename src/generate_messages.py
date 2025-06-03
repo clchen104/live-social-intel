@@ -1,20 +1,24 @@
-def generate_message(tweet_text, score):
-    snippet = tweet_text.strip().replace("\n", " ")[:100]
+def generate_message(text, score, categories):
+    snippet = text.strip().replace("\n", " ")[:100]
 
-    if score >= 9:
-        urgency = "It sounds like your team is under serious pressure to scale or automate quickly."
-    elif score >= 5:
-        urgency = "It seems like you're actively exploring ways to boost team efficiency or handle expertise gaps."
-    elif score >= 2:
-        urgency = "We noticed you're looking into AI or automation."
+    # Use categories to pick message strategy
+    if "urgency" in categories and "ai" in categories:
+        urgency = "You're clearly facing urgent AI integration needs."
+    elif "hiring" in categories and "ai" in categories:
+        urgency = "Looks like you're building AI capacity fast."
+    elif "urgency" in categories:
+        urgency = "Sounds like your team needs help fast."
+    elif "budget" in categories and "ai" in categories:
+        urgency = "You're investing in AI—let’s make that go further."
+    elif score >= 6:
+        urgency = "We help teams handle growth and AI expertise gaps."
     else:
-        return None  # Score too low → skip this lead
+        return None
 
     message = (
-        f"Hi there! I saw your recent tweet:\n"
-        f'"{snippet}..."\n\n'
-        f"{urgency} We help teams integrate AI-human collaboration systems to scale operations and reduce expert bottlenecks. "
-        f" Happy to share a quick demo or talk if you're open!"
+        f"Hi there! I saw your recent post:\n"
+        f' \"{snippet}...\"\n\n'
+        f"{urgency} We specialize in AI-human collaboration systems that scale teams and reduce expert bottlenecks."
+        f" Happy to share a quick demo if you're interested!"
     )
-
     return message

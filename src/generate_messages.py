@@ -6,8 +6,6 @@ def generate_message(text, score, categories):
         urgency = "You're clearly facing urgent AI integration needs."
     elif "hiring" in categories and "ai" in categories:
         urgency = "Looks like you're building AI capacity fast."
-    elif "urgency" in categories:
-        urgency = "Sounds like your team needs help fast."
     elif "budget" in categories and "ai" in categories:
         urgency = "You're investing in AI—let’s make that go further."
     elif score >= 4 and "ai" in categories:

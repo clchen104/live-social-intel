@@ -10,38 +10,55 @@ client = tweepy.Client(bearer_token=BEARER_TOKEN)
 
 def search_tweets(query, max_results=10):
     try:
-        tweets = client.search_recent_tweets(query=query, 
-                                            max_results=max_results, 
-                                            tweet_fields=["author_id", "created_at"])
+        tweets = client.search_recent_tweets(
+            query=query, 
+            max_results=max_results, 
+            tweet_fields=["author_id", "created_at"]
+        )
         return tweets.data if tweets.data else []
+    
     except tweepy.TooManyRequests:
-        print("Twitter API rate limit hit (HTTP 429). Try again later.")
-        return []
+        print("Twitter API rate limit hit (HTTP 429). Falling back to mock tweets.")
+    
     except Exception as e:
         print("Error fetching tweets:", e)
+        print("Falling back to mock tweets.")
+
+    # Fallback: load mock tweets
+    try:
+        with open("mock_tweets.json", "r") as f:
+            mock_tweets = json.load(f)
+            print(f"Loaded {len(mock_tweets)} mock tweets.")
+            return mock_tweets
+    except Exception as e:
+        print("Failed to load mock tweets:", e)
         return []
 
 if __name__ == "__main__":
     query = '"AI automation" OR "scaling teams" OR "expert bottlenecks" -is:retweet lang:en'
     results = search_tweets(query, max_results=10)
 
-    # Print preview
+    if not results:
+        print("No tweets to score. Skipping save.")
+        exit()
+
+    scored_data = []
     for tweet in results:
-        score, matched_categories = score_tweet(tweet.text)
-        print(f"[{score}/10] {tweet.created_at} | @{tweet.author_id}:\n{tweet.text[:200]}...\n")
+        # Support both Tweepy Tweet objects and mock dicts
+        text = tweet["text"] if isinstance(tweet, dict) else tweet.text
+        author = tweet.get("author_id", "mock") if isinstance(tweet, dict) else tweet.author_id
+        created = tweet.get("created_at", "mock") if isinstance(tweet, dict) else str(tweet.created_at)
 
-    # Save scored leads
-    scored_data = [
-        {
+        score, categories = score_tweet(text)
+        scored_data.append({
             "score": score,
-            "matched_categories": matched_categories,
-            "text": tweet.text,
-            "author_id": tweet.author_id,
-            "created_at": str(tweet.created_at)
-        }
-        for tweet in results
-        for score, categories in [score_tweet(tweet.text)]
-    ]
+            "matched_categories": categories,
+            "text": text,
+            "author_id": author,
+            "created_at": created
+        })
 
+    # Save to JSON
     with open("scored_leads.json", "w") as f:
         json.dump(scored_data, f, indent=2)
+        print(f"Saved {len(scored_data)} leads to scored_leads.json")

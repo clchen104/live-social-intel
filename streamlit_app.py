@@ -1,6 +1,8 @@
 import streamlit as st
 import json
 import traceback
+import os
+import subprocess
 
 st.set_page_config(page_title="Live Social Leads", layout="wide")
 
@@ -21,6 +23,16 @@ try:
     combined = twitter + linkedin
     combined = sorted(combined, key=lambda x: x.get("score", 0), reverse=True)
 
+    st.markdown("### Refresh Live Leads")
+    if st.button("Refetch and Rescore"):
+        with st.spinner("Fetching new tweets and rescoring..."):
+            try:
+                subprocess.run(["python", "refresh_all.py"], check=True)
+                st.success("Done! Tweets and messages refreshed.")
+            except subprocess.CalledProcessError as e:
+                st.error("Error while refreshing:")
+                st.code(str(e))
+    
     st.markdown("### Top Leads from Twitter and LinkedIn")
     for lead in combined:
         st.subheader(f"{lead.get('author', lead.get('author_id', 'Unknown'))} — {lead['score']}/10")

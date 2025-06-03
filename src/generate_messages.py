@@ -18,7 +18,7 @@ def generate_message(text, score, categories):
     message = (
         f"Hi there! I saw your recent post:\n"
         f' \"{snippet}...\"\n\n'
-        f"{urgency} We specialize in AI-human collaboration systems that scale teams and reduce expert bottlenecks."
-        f" Happy to share a quick demo if you're interested!"
+        f"{urgency} We specialize in AI-human collaboration systems that scale teams and reduce expert bottlenecks.\n\n"
+        f"Happy to share a quick demo if you're interested!"
     )
     return message

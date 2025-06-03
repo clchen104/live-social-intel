@@ -8,7 +8,7 @@ load_dotenv()
 BEARER_TOKEN = os.getenv("TWITTER_BEARER_TOKEN")
 client = tweepy.Client(bearer_token=BEARER_TOKEN)
 
-def search_tweets(query, max_results=10):
+def search_tweets(query, max_results=100):
     try:
         response = client.search_recent_tweets(
             query=query, 
@@ -42,8 +42,8 @@ def search_tweets(query, max_results=10):
 
 
 if __name__ == "__main__":
-    query = '"AI automation" OR "scaling teams" OR "expert bottlenecks" -is:retweet lang:en'
-    results = search_tweets(query, max_results=10)
+    query = '(ai OR "ai automation" OR "expert bottlenecks" OR "hiring engineers" OR scaling OR urgent) lang:en -is:retweet'
+    results = search_tweets(query, max_results=100)
 
     if not results:
         print("No tweets to score. Skipping save.")

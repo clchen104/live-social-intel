@@ -10,6 +10,9 @@ enriched_leads = []
 for lead in leads:
     score = lead.get("score", 0)
     categories = lead.get("matched_categories", [])
+    if not isinstance(categories, list):
+        categories = []
+
     text = lead.get("text", "")
 
     # Generate a message based on score and text

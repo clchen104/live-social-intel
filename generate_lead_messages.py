@@ -1,7 +1,6 @@
 import json
 from src.generate_messages import generate_message
 
-# Load previously scored leads
 with open("scored_leads.json", "r") as f:
     leads = json.load(f)
 

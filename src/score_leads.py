@@ -13,7 +13,7 @@ def score_tweet(text):
         score += 2
         matched_categories.append("hiring")
 
-    if re.search(r"\bai automation\b|\bexpert bottleneck\b", text_lower):
+    if re.search(r"\bai\b|\bai automation\b|\bexpert bottleneck\b", text_lower):
         score += 2
         matched_categories.append("ai")
 

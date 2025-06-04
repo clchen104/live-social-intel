@@ -14,14 +14,13 @@ for lead in leads:
 
     text = lead.get("text", "")
 
-    # Generate a message based on score and text
     message = generate_message(text, score, categories)
 
     # Only include leads with messages (score must be high enough)
     if message:
         enriched_leads.append({
             **lead,              # Keep original lead fields
-            "message": message   # Add personalized outreach
+            "message": message   
         })
 
 # Save enriched leads to new JSON
